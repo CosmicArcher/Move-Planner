@@ -1,0 +1,1681 @@
+{
+    "MapAddress": "pl_ld_withSpawns.png",
+    "nodes": [
+        {
+            "NodeID": 1,
+            "nodeLocationPerc": {
+                "x": 0.402805894613266,
+                "y": 0.34416764974594118
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                2
+            ]
+        },
+        {
+            "NodeID": 2,
+            "nodeLocationPerc": {
+                "x": 0.3836246728897095,
+                "y": 0.20032240450382234
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                1,
+                3,
+                4
+            ]
+        },
+        {
+            "NodeID": 3,
+            "nodeLocationPerc": {
+                "x": 0.37467342615127566,
+                "y": 0.13319461047649384
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                2
+            ]
+        },
+        {
+            "NodeID": 4,
+            "nodeLocationPerc": {
+                "x": 0.35932841897010805,
+                "y": 0.2458733767271042
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                2,
+                5
+            ]
+        },
+        {
+            "NodeID": 5,
+            "nodeLocationPerc": {
+                "x": 0.3363109529018402,
+                "y": 0.21950174868106843
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                4,
+                6,
+                7
+            ]
+        },
+        {
+            "NodeID": 6,
+            "nodeLocationPerc": {
+                "x": 0.3363109529018402,
+                "y": 0.28423210978507998
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                5,
+                14
+            ]
+        },
+        {
+            "NodeID": 7,
+            "nodeLocationPerc": {
+                "x": 0.2902759909629822,
+                "y": 0.24107854068279267
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                10,
+                5,
+                8
+            ]
+        },
+        {
+            "NodeID": 8,
+            "nodeLocationPerc": {
+                "x": 0.2953909933567047,
+                "y": 0.30820631980895998
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                7,
+                13,
+                9
+            ]
+        },
+        {
+            "NodeID": 9,
+            "nodeLocationPerc": {
+                "x": 0.2659797966480255,
+                "y": 0.2890269458293915
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                8
+            ]
+        },
+        {
+            "NodeID": 10,
+            "nodeLocationPerc": {
+                "x": 0.23656857013702393,
+                "y": 0.2626553177833557
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 3,
+            "connectedNodes": [
+                11,
+                7
+            ]
+        },
+        {
+            "NodeID": 11,
+            "nodeLocationPerc": {
+                "x": 0.24168354272842408,
+                "y": 0.3345779776573181
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 3,
+            "connectedNodes": [
+                12,
+                10
+            ]
+        },
+        {
+            "NodeID": 12,
+            "nodeLocationPerc": {
+                "x": 0.25191351771354678,
+                "y": 0.3921160399913788
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 3,
+            "connectedNodes": [
+                13,
+                11
+            ]
+        },
+        {
+            "NodeID": 13,
+            "nodeLocationPerc": {
+                "x": 0.30434221029281618,
+                "y": 0.37053927779197695
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 3,
+            "connectedNodes": [
+                14,
+                12,
+                8
+            ]
+        },
+        {
+            "NodeID": 14,
+            "nodeLocationPerc": {
+                "x": 0.3401472270488739,
+                "y": 0.35615473985671999
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                6,
+                13
+            ]
+        },
+        {
+            "NodeID": 15,
+            "nodeLocationPerc": {
+                "x": 0.6342594027519226,
+                "y": 0.18593786656856538
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                58,
+                16
+            ]
+        },
+        {
+            "NodeID": 16,
+            "nodeLocationPerc": {
+                "x": 0.708426833152771,
+                "y": 0.16675850749015809
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                15,
+                51,
+                17
+            ]
+        },
+        {
+            "NodeID": 17,
+            "nodeLocationPerc": {
+                "x": 0.7608555555343628,
+                "y": 0.19313012063503266
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                16,
+                18
+            ]
+        },
+        {
+            "NodeID": 18,
+            "nodeLocationPerc": {
+                "x": 0.805611789226532,
+                "y": 0.21950174868106843
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                17,
+                52,
+                54,
+                19
+            ]
+        },
+        {
+            "NodeID": 19,
+            "nodeLocationPerc": {
+                "x": 0.8516466617584229,
+                "y": 0.20032240450382234
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                18,
+                55,
+                20
+            ]
+        },
+        {
+            "NodeID": 20,
+            "nodeLocationPerc": {
+                "x": 0.8925666213035584,
+                "y": 0.1595662236213684
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                19,
+                21
+            ]
+        },
+        {
+            "NodeID": 21,
+            "nodeLocationPerc": {
+                "x": 0.9168629050254822,
+                "y": 0.23388627171516419
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                20,
+                55,
+                22
+            ]
+        },
+        {
+            "NodeID": 22,
+            "nodeLocationPerc": {
+                "x": 0.9270929098129273,
+                "y": 0.31539860367774966
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                21,
+                55,
+                56,
+                23
+            ]
+        },
+        {
+            "NodeID": 23,
+            "nodeLocationPerc": {
+                "x": 0.9296504259109497,
+                "y": 0.4208851158618927
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                22,
+                56,
+                43,
+                24
+            ]
+        },
+        {
+            "NodeID": 24,
+            "nodeLocationPerc": {
+                "x": 0.896402895450592,
+                "y": 0.538358747959137
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                23,
+                42,
+                25
+            ]
+        },
+        {
+            "NodeID": 25,
+            "nodeLocationPerc": {
+                "x": 0.896402895450592,
+                "y": 0.64384526014328
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                24,
+                40,
+                26
+            ]
+        },
+        {
+            "NodeID": 26,
+            "nodeLocationPerc": {
+                "x": 0.8465317487716675,
+                "y": 0.7397420406341553
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                25,
+                40,
+                34,
+                27
+            ]
+        },
+        {
+            "NodeID": 27,
+            "nodeLocationPerc": {
+                "x": 0.8414166569709778,
+                "y": 0.8140621185302734
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                26,
+                28
+            ]
+        },
+        {
+            "NodeID": 28,
+            "nodeLocationPerc": {
+                "x": 0.8017755746841431,
+                "y": 0.7757033705711365
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                27,
+                34,
+                29
+            ]
+        },
+        {
+            "NodeID": 29,
+            "nodeLocationPerc": {
+                "x": 0.7582980990409851,
+                "y": 0.7757033705711365
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                28,
+                30,
+                32
+            ]
+        },
+        {
+            "NodeID": 30,
+            "nodeLocationPerc": {
+                "x": 0.7224931120872498,
+                "y": 0.778100848197937
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                29,
+                36,
+                31
+            ]
+        },
+        {
+            "NodeID": 31,
+            "nodeLocationPerc": {
+                "x": 0.6905243396759033,
+                "y": 0.8044724464416504
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                63,
+                33,
+                62,
+                30
+            ]
+        },
+        {
+            "NodeID": 32,
+            "nodeLocationPerc": {
+                "x": 0.7263293266296387,
+                "y": 0.8500235080718994
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                29,
+                63
+            ]
+        },
+        {
+            "NodeID": 33,
+            "nodeLocationPerc": {
+                "x": 0.6739006638526917,
+                "y": 0.6893962621688843
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                36,
+                37,
+                61,
+                31
+            ]
+        },
+        {
+            "NodeID": 34,
+            "nodeLocationPerc": {
+                "x": 0.776200532913208,
+                "y": 0.730152428150177
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                26,
+                28,
+                35
+            ]
+        },
+        {
+            "NodeID": 35,
+            "nodeLocationPerc": {
+                "x": 0.7429530620574951,
+                "y": 0.7085756063461304
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                36,
+                34,
+                39
+            ]
+        },
+        {
+            "NodeID": 36,
+            "nodeLocationPerc": {
+                "x": 0.7109843492507935,
+                "y": 0.6965885162353516
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                38,
+                35,
+                33,
+                30
+            ]
+        },
+        {
+            "NodeID": 37,
+            "nodeLocationPerc": {
+                "x": 0.6726219058036804,
+                "y": 0.5911020040512085
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                38,
+                60,
+                33,
+                61
+            ]
+        },
+        {
+            "NodeID": 38,
+            "nodeLocationPerc": {
+                "x": 0.7224931120872498,
+                "y": 0.6150761842727661
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                41,
+                37,
+                36
+            ]
+        },
+        {
+            "NodeID": 39,
+            "nodeLocationPerc": {
+                "x": 0.7889879941940308,
+                "y": 0.6534349322319031
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                41,
+                35,
+                40
+            ]
+        },
+        {
+            "NodeID": 40,
+            "nodeLocationPerc": {
+                "x": 0.8426955342292786,
+                "y": 0.6510375142097473
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                25,
+                26,
+                42,
+                39
+            ]
+        },
+        {
+            "NodeID": 41,
+            "nodeLocationPerc": {
+                "x": 0.7838730812072754,
+                "y": 0.5647304058074951
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                42,
+                39,
+                38
+            ]
+        },
+        {
+            "NodeID": 42,
+            "nodeLocationPerc": {
+                "x": 0.8401379585266113,
+                "y": 0.5551406741142273
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                24,
+                44,
+                40,
+                41
+            ]
+        },
+        {
+            "NodeID": 43,
+            "nodeLocationPerc": {
+                "x": 0.8836154341697693,
+                "y": 0.44246190786361697
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                23,
+                44
+            ]
+        },
+        {
+            "NodeID": 44,
+            "nodeLocationPerc": {
+                "x": 0.8324654698371887,
+                "y": 0.45444899797439577
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                45,
+                43,
+                42
+            ]
+        },
+        {
+            "NodeID": 45,
+            "nodeLocationPerc": {
+                "x": 0.7825943231582642,
+                "y": 0.4688335359096527
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                47,
+                46,
+                44
+            ]
+        },
+        {
+            "NodeID": 46,
+            "nodeLocationPerc": {
+                "x": 0.7224931120872498,
+                "y": 0.4880128800868988
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                45,
+                60
+            ]
+        },
+        {
+            "NodeID": 47,
+            "nodeLocationPerc": {
+                "x": 0.7493467926979065,
+                "y": 0.41848766803741457
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                48,
+                45
+            ]
+        },
+        {
+            "NodeID": 48,
+            "nodeLocationPerc": {
+                "x": 0.7020331025123596,
+                "y": 0.3921160399913788
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                59,
+                47,
+                49
+            ]
+        },
+        {
+            "NodeID": 49,
+            "nodeLocationPerc": {
+                "x": 0.7365593314170837,
+                "y": 0.3345779776573181
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                48,
+                50,
+                53
+            ]
+        },
+        {
+            "NodeID": 50,
+            "nodeLocationPerc": {
+                "x": 0.694360613822937,
+                "y": 0.31539860367774966
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                58,
+                49,
+                51
+            ]
+        },
+        {
+            "NodeID": 51,
+            "nodeLocationPerc": {
+                "x": 0.6930818557739258,
+                "y": 0.2386811077594757
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                16,
+                50,
+                52
+            ]
+        },
+        {
+            "NodeID": 52,
+            "nodeLocationPerc": {
+                "x": 0.762134313583374,
+                "y": 0.2794373035430908
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                18,
+                51,
+                53
+            ]
+        },
+        {
+            "NodeID": 53,
+            "nodeLocationPerc": {
+                "x": 0.7889879941940308,
+                "y": 0.3489624559879303
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                49,
+                52,
+                57,
+                54
+            ]
+        },
+        {
+            "NodeID": 54,
+            "nodeLocationPerc": {
+                "x": 0.8299079537391663,
+                "y": 0.2866295278072357
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                18,
+                53,
+                55
+            ]
+        },
+        {
+            "NodeID": 55,
+            "nodeLocationPerc": {
+                "x": 0.8759429454803467,
+                "y": 0.27224501967430117
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                19,
+                21,
+                22,
+                54,
+                56
+            ]
+        },
+        {
+            "NodeID": 56,
+            "nodeLocationPerc": {
+                "x": 0.8912879228591919,
+                "y": 0.37053927779197695
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                22,
+                23,
+                55,
+                57
+            ]
+        },
+        {
+            "NodeID": 57,
+            "nodeLocationPerc": {
+                "x": 0.835023045539856,
+                "y": 0.3609495759010315
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                53,
+                56
+            ]
+        },
+        {
+            "NodeID": 58,
+            "nodeLocationPerc": {
+                "x": 0.6201931834220886,
+                "y": 0.293821781873703
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                71,
+                59,
+                50,
+                15
+            ]
+        },
+        {
+            "NodeID": 59,
+            "nodeLocationPerc": {
+                "x": 0.6253081560134888,
+                "y": 0.39930832386016848
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                58,
+                70,
+                48
+            ]
+        },
+        {
+            "NodeID": 60,
+            "nodeLocationPerc": {
+                "x": 0.6687856316566467,
+                "y": 0.5023974180221558
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                37,
+                68,
+                69,
+                46
+            ]
+        },
+        {
+            "NodeID": 61,
+            "nodeLocationPerc": {
+                "x": 0.6393744349479675,
+                "y": 0.6965885162353516
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                37,
+                33,
+                66
+            ]
+        },
+        {
+            "NodeID": 62,
+            "nodeLocationPerc": {
+                "x": 0.6406531929969788,
+                "y": 0.7661137580871582
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                65,
+                31
+            ]
+        },
+        {
+            "NodeID": 63,
+            "nodeLocationPerc": {
+                "x": 0.6342594027519226,
+                "y": 0.8620105385780335
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                32,
+                31,
+                64
+            ]
+        },
+        {
+            "NodeID": 64,
+            "nodeLocationPerc": {
+                "x": 0.5703219771385193,
+                "y": 0.7852931022644043
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                63,
+                67,
+                65
+            ]
+        },
+        {
+            "NodeID": 65,
+            "nodeLocationPerc": {
+                "x": 0.5652070045471191,
+                "y": 0.7085756063461304
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                64,
+                66,
+                62,
+                81
+            ]
+        },
+        {
+            "NodeID": 66,
+            "nodeLocationPerc": {
+                "x": 0.602290689945221,
+                "y": 0.6989859342575073
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                65,
+                61,
+                68
+            ]
+        },
+        {
+            "NodeID": 67,
+            "nodeLocationPerc": {
+                "x": 0.5242870450019836,
+                "y": 0.7948828339576721
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                64,
+                81
+            ]
+        },
+        {
+            "NodeID": 68,
+            "nodeLocationPerc": {
+                "x": 0.6074056625366211,
+                "y": 0.5839097499847412
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                80,
+                66,
+                60,
+                69
+            ]
+        },
+        {
+            "NodeID": 69,
+            "nodeLocationPerc": {
+                "x": 0.6201931834220886,
+                "y": 0.5167819857597351
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                70,
+                68,
+                60
+            ]
+        },
+        {
+            "NodeID": 70,
+            "nodeLocationPerc": {
+                "x": 0.5805519819259644,
+                "y": 0.5215767621994019
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                74,
+                71,
+                69,
+                59
+            ]
+        },
+        {
+            "NodeID": 71,
+            "nodeLocationPerc": {
+                "x": 0.5716007351875305,
+                "y": 0.3585521876811981
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                73,
+                72,
+                70,
+                58
+            ]
+        },
+        {
+            "NodeID": 72,
+            "nodeLocationPerc": {
+                "x": 0.5153357982635498,
+                "y": 0.3657444417476654
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                73,
+                71
+            ]
+        },
+        {
+            "NodeID": 73,
+            "nodeLocationPerc": {
+                "x": 0.5153357982635498,
+                "y": 0.45444899797439577
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                74,
+                72,
+                71
+            ]
+        },
+        {
+            "NodeID": 74,
+            "nodeLocationPerc": {
+                "x": 0.5153357982635498,
+                "y": 0.5359613299369812
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                99,
+                75,
+                70,
+                73
+            ]
+        },
+        {
+            "NodeID": 75,
+            "nodeLocationPerc": {
+                "x": 0.5025482773780823,
+                "y": 0.5934994220733643
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                79,
+                74
+            ]
+        },
+        {
+            "NodeID": 76,
+            "nodeLocationPerc": {
+                "x": 0.43861082196235659,
+                "y": 0.6174736022949219
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                77,
+                79
+            ]
+        },
+        {
+            "NodeID": 77,
+            "nodeLocationPerc": {
+                "x": 0.36444342136383059,
+                "y": 0.5647304058074951
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                78,
+                99,
+                76
+            ]
+        },
+        {
+            "NodeID": 78,
+            "nodeLocationPerc": {
+                "x": 0.4168721139431,
+                "y": 0.6606271862983704
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                84,
+                82,
+                77
+            ]
+        },
+        {
+            "NodeID": 79,
+            "nodeLocationPerc": {
+                "x": 0.48720332980155947,
+                "y": 0.6462426781654358
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                76,
+                82,
+                75,
+                80
+            ]
+        },
+        {
+            "NodeID": 80,
+            "nodeLocationPerc": {
+                "x": 0.5524194836616516,
+                "y": 0.6270633339881897
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                79,
+                81,
+                68
+            ]
+        },
+        {
+            "NodeID": 81,
+            "nodeLocationPerc": {
+                "x": 0.5217295289039612,
+                "y": 0.7181653380393982
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                65,
+                67,
+                82,
+                80
+            ]
+        },
+        {
+            "NodeID": 82,
+            "nodeLocationPerc": {
+                "x": 0.4693008363246918,
+                "y": 0.7349472045898438
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                83,
+                78,
+                79,
+                81
+            ]
+        },
+        {
+            "NodeID": 83,
+            "nodeLocationPerc": {
+                "x": 0.41559338569641116,
+                "y": 0.7637162804603577
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                84,
+                82,
+                86
+            ]
+        },
+        {
+            "NodeID": 84,
+            "nodeLocationPerc": {
+                "x": 0.3874609172344208,
+                "y": 0.7205626964569092
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                85,
+                83,
+                86,
+                78
+            ]
+        },
+        {
+            "NodeID": 85,
+            "nodeLocationPerc": {
+                "x": 0.33119598031044009,
+                "y": 0.6654220223426819
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                87,
+                84
+            ]
+        },
+        {
+            "NodeID": 86,
+            "nodeLocationPerc": {
+                "x": 0.3580496907234192,
+                "y": 0.7828956246376038
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                87,
+                84,
+                83,
+                88
+            ]
+        },
+        {
+            "NodeID": 87,
+            "nodeLocationPerc": {
+                "x": 0.3030634820461273,
+                "y": 0.7325498461723328
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                93,
+                89,
+                86,
+                85
+            ]
+        },
+        {
+            "NodeID": 88,
+            "nodeLocationPerc": {
+                "x": 0.3145722448825836,
+                "y": 0.7972801923751831
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                89,
+                86
+            ]
+        },
+        {
+            "NodeID": 89,
+            "nodeLocationPerc": {
+                "x": 0.2685372531414032,
+                "y": 0.8068698644638062
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                90,
+                88,
+                87
+            ]
+        },
+        {
+            "NodeID": 90,
+            "nodeLocationPerc": {
+                "x": 0.22633855044841767,
+                "y": 0.8092673420906067
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                91,
+                89
+            ]
+        },
+        {
+            "NodeID": 91,
+            "nodeLocationPerc": {
+                "x": 0.17774608731269837,
+                "y": 0.8212543725967407
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                96,
+                92,
+                90
+            ]
+        },
+        {
+            "NodeID": 92,
+            "nodeLocationPerc": {
+                "x": 0.21355105936527253,
+                "y": 0.7517291903495789
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                93,
+                91
+            ]
+        },
+        {
+            "NodeID": 93,
+            "nodeLocationPerc": {
+                "x": 0.2467985451221466,
+                "y": 0.6869988441467285
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                94,
+                87,
+                92
+            ]
+        },
+        {
+            "NodeID": 94,
+            "nodeLocationPerc": {
+                "x": 0.17007361352443696,
+                "y": 0.7085756063461304
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                95,
+                93
+            ]
+        },
+        {
+            "NodeID": 95,
+            "nodeLocationPerc": {
+                "x": 0.13043241202831269,
+                "y": 0.7637162804603577
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                97,
+                96,
+                94
+            ]
+        },
+        {
+            "NodeID": 96,
+            "nodeLocationPerc": {
+                "x": 0.12915363907814027,
+                "y": 0.8356389403343201
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                95,
+                97,
+                91
+            ]
+        },
+        {
+            "NodeID": 97,
+            "nodeLocationPerc": {
+                "x": 0.07800371199846268,
+                "y": 0.866805374622345
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 0,
+            "connectedNodes": [
+                98,
+                95,
+                96
+            ]
+        },
+        {
+            "NodeID": 98,
+            "nodeLocationPerc": {
+                "x": 0.08311868458986283,
+                "y": 0.7852931022644043
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 2,
+            "connectedNodes": [
+                97
+            ]
+        },
+        {
+            "NodeID": 99,
+            "nodeLocationPerc": {
+                "x": 0.448840856552124,
+                "y": 0.5455510020256043
+            },
+            "nodeSizePerc": {
+                "x": 0.020182142034173013,
+                "y": 0.037837836891412738
+            },
+            "nodeFaction": 1,
+            "connectedNodes": [
+                77,
+                74
+            ]
+        }
+    ]
+}

@@ -58,3 +58,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+ProjectSettings/
+Packages/
+Assets/MapImages/unknown.png
+Assets/MapImages/unknown.png.meta
+Assets/MapImages/unknown_new.png
+Assets/MapImages/unknown_new.png.meta
