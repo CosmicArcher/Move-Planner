@@ -10,8 +10,7 @@ public class EchelonsManager : MonoBehaviour
     private List<ParachuteBehavior> parachuteEchelons = new List<ParachuteBehavior>();
     private List<EchelonBehavior> HOCs = new List<EchelonBehavior>();
     private List<EchelonBehavior> NPCs = new List<EchelonBehavior>();
-    private List<EchelonBehavior> regularEnemies = new List<EchelonBehavior>();
-    private List<EchelonBehavior> deathstacks = new List<EchelonBehavior>();
+    private List<EchelonBehavior> enemies = new List<EchelonBehavior>();
     private List<EchelonBehavior> allEchelons = new List<EchelonBehavior>();
 
     [SerializeField] private MovePlanner planner;
@@ -23,9 +22,6 @@ public class EchelonsManager : MonoBehaviour
     [SerializeField] private GameObject HOCTemplate;
     [SerializeField] private GameObject NPCTemplate;
     [SerializeField] private GameObject regularEnemyTemplate;
-    [SerializeField] private GameObject deathstackTemplate;
-    [SerializeField] private GameObject ELIDTemplate;
-    [SerializeField] private GameObject ParadeusTemplate;
 
     private EchelonBehavior selectedEchelon;
     private Queue<int> retreatedEchelons = new Queue<int>();
@@ -37,11 +33,13 @@ public class EchelonsManager : MonoBehaviour
     [SerializeField] private Text InputFieldLabel;
     [SerializeField] private InputField InputField;
     private bool submitted = false;
-    private EchelonType newestType;
+
+    [SerializeField] private GameObject enemyCreatorHolder;
+    [SerializeField] private EnemyCreator enemyCreator;
+    private bool creatingNewEnemy = false;
 
     public void AddEchelon(EchelonType type, NodeBehavior node)
     {
-        newestType = type;
         GameObject newEchelon = null;
         switch (type)
         {
@@ -67,21 +65,10 @@ public class EchelonsManager : MonoBehaviour
                 newEchelon = Instantiate(NPCTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
                 NPCs.Add(newEchelon.GetComponent<EchelonBehavior>());
                 break;
-            case EchelonType.KCCO:
+            case EchelonType.Enemy:
                 newEchelon = Instantiate(regularEnemyTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                regularEnemies.Add(newEchelon.GetComponent<EchelonBehavior>());
-                break;
-            case EchelonType.Deathstack:
-                newEchelon = Instantiate(deathstackTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                deathstacks.Add(newEchelon.GetComponent<EchelonBehavior>());
-                break;
-            case EchelonType.ELID:
-                newEchelon = Instantiate(ELIDTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                regularEnemies.Add(newEchelon.GetComponent<EchelonBehavior>());
-                break;
-            case EchelonType.Paradeus:
-                newEchelon = Instantiate(ParadeusTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                regularEnemies.Add(newEchelon.GetComponent<EchelonBehavior>());
+                enemies.Add(newEchelon.GetComponent<EchelonBehavior>());
+                StartCoroutine(InputEnemyAttributes(newEchelon.GetComponent<EchelonBehavior>()));
                 break;
         }
         EchelonBehavior behavior = newEchelon.GetComponent<EchelonBehavior>();
@@ -102,10 +89,6 @@ public class EchelonsManager : MonoBehaviour
             else
                 behavior.SetID(HOCs.Count);
         }
-        else if (type == EchelonType.Deathstack)
-        {
-            StartCoroutine(InputEchelonName(behavior));
-        }
 
         if (gameStateManager.factionMoving == FactionTurn.Blue)
         {
@@ -125,10 +108,7 @@ public class EchelonsManager : MonoBehaviour
     private IEnumerator InputEchelonName(EchelonBehavior behavior)
     {
         InputFieldHolder.SetActive(true);
-        if (newestType == EchelonType.Deathstack)
-            InputFieldLabel.text = "Deathstack ID:";
-        else
-            InputFieldLabel.text = "Echelon Name:";
+        InputFieldLabel.text = "Echelon Name:";
 
         submitted = false;
         while (!submitted)
@@ -136,13 +116,29 @@ public class EchelonsManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        if (newestType == EchelonType.Deathstack)
-            behavior.SetID(int.Parse(InputField.text));
-        else
-            behavior.SetName(InputField.text);
+        behavior.SetName(InputField.text);
 
         InputFieldHolder.SetActive(false);
         InputField.text = "";
+    }
+
+    private IEnumerator InputEnemyAttributes(EchelonBehavior behavior)
+    {
+        enemyCreatorHolder.SetActive(true);
+        creatingNewEnemy = false;
+        while (!creatingNewEnemy)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        if (enemyCreator.GetEnemyID().Length > 0)
+            behavior.SetID(int.Parse(enemyCreator.GetEnemyID()));
+
+        behavior.SetFaction(enemyCreator.GetEnemyFaction());
+        behavior.GetComponent<Image>().sprite = enemyCreator.GetChosenSprite();
+
+        enemyCreator.ResetInputField();
+        enemyCreatorHolder.SetActive(false);
     }
 
     public void SelectEchelon(EchelonBehavior echelon)
@@ -184,14 +180,7 @@ public class EchelonsManager : MonoBehaviour
             allEchelons.Remove(echelon);
             if (echelon.GetFaction() != Faction.Blue)
             {
-                if (regularEnemies.Contains(echelon))
-                {
-                    regularEnemies.Remove(echelon);
-                }
-                else
-                {
-                    deathstacks.Remove(echelon);
-                }
+                enemies.Remove(echelon);
             }
             else
             {
@@ -241,14 +230,7 @@ public class EchelonsManager : MonoBehaviour
         }
         else
         {
-            foreach (EchelonBehavior echelon in regularEnemies)
-            {
-                if (echelon.GetFaction() == faction)
-                {
-                    echelon.CaptureNode();
-                }
-            }
-            foreach (EchelonBehavior echelon in deathstacks)
+            foreach (EchelonBehavior echelon in enemies)
             {
                 if (echelon.GetFaction() == faction)
                 {
@@ -352,16 +334,12 @@ public class EchelonsManager : MonoBehaviour
 
     public void Submit()
     {
-        if (newestType == EchelonType.Deathstack)
-        {
-            int x;
-            if (int.TryParse(InputField.text, out x))
-                submitted = true;
-        }
-        else
-        {
-            if (InputField.text.Length > 0)
-                submitted = true;
-        }
+        if (InputField.text.Length > 0)
+            submitted = true;
+    }
+
+    public void CreateNewEnemy()
+    {
+        creatingNewEnemy = true;
     }
 }

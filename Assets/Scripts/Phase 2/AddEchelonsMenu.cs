@@ -9,10 +9,7 @@ public enum EchelonType
     Parachute = 1,
     HOC = 2,
     NPC = 3,
-    KCCO = 4,
-    Deathstack = 5,
-    ELID = 6,
-    Paradeus = 7
+    Enemy = 4
 }
 
 public class AddEchelonsMenu : MonoBehaviour
@@ -25,10 +22,7 @@ public class AddEchelonsMenu : MonoBehaviour
     [SerializeField] private Image ParachuteHolder;
     [SerializeField] private Image HOCHolder;
     [SerializeField] private Image NPCHolder;
-    [SerializeField] private Image KCCOHolder;
-    [SerializeField] private Image DeathstackHolder;
-    [SerializeField] private Image ELIDHolder;
-    [SerializeField] private Image ParadeusHolder;
+    [SerializeField] private Image EnemyHolder;
 
     private EchelonType echelonToPlace;
 
@@ -41,10 +35,7 @@ public class AddEchelonsMenu : MonoBehaviour
         ParachuteHolder.color = Color.white;
         HOCHolder.color = Color.white;
         NPCHolder.color = Color.white;
-        KCCOHolder.color = Color.white;
-        DeathstackHolder.color = Color.white;
-        ELIDHolder.color = Color.white;
-        ParadeusHolder.color = Color.white;
+        EnemyHolder.color = Color.white;
     }
     public void AddParachute()
     {
@@ -55,10 +46,7 @@ public class AddEchelonsMenu : MonoBehaviour
         ParachuteHolder.color = Color.yellow;
         HOCHolder.color = Color.white;
         NPCHolder.color = Color.white;
-        KCCOHolder.color = Color.white;
-        DeathstackHolder.color = Color.white;
-        ELIDHolder.color = Color.white;
-        ParadeusHolder.color = Color.white;
+        EnemyHolder.color = Color.white;
     }
     public void AddHOC()
     {
@@ -69,10 +57,7 @@ public class AddEchelonsMenu : MonoBehaviour
         ParachuteHolder.color = Color.white;
         HOCHolder.color = Color.yellow;
         NPCHolder.color = Color.white;
-        KCCOHolder.color = Color.white;
-        DeathstackHolder.color = Color.white;
-        ELIDHolder.color = Color.white;
-        ParadeusHolder.color = Color.white;
+        EnemyHolder.color = Color.white;
     }
     public void AddNPC()
     {
@@ -83,66 +68,18 @@ public class AddEchelonsMenu : MonoBehaviour
         ParachuteHolder.color = Color.white;
         HOCHolder.color = Color.white;
         NPCHolder.color = Color.yellow;
-        KCCOHolder.color = Color.white;
-        DeathstackHolder.color = Color.white;
-        ELIDHolder.color = Color.white;
-        ParadeusHolder.color = Color.white;
+        EnemyHolder.color = Color.white;
     }
     public void AddEnemy()
     {
         gameStateManager.gameState = GameStates.PlacingEchelon;
-        echelonToPlace = EchelonType.KCCO;
+        echelonToPlace = EchelonType.Enemy;
 
         NormalEchelonHolder.color = Color.white;
         ParachuteHolder.color = Color.white;
         HOCHolder.color = Color.white;
         NPCHolder.color = Color.white;
-        KCCOHolder.color = Color.yellow;
-        DeathstackHolder.color = Color.white;
-        ELIDHolder.color = Color.white;
-        ParadeusHolder.color = Color.white;
-    }
-    public void AddDeathstack()
-    {
-        gameStateManager.gameState = GameStates.PlacingEchelon;
-        echelonToPlace = EchelonType.Deathstack;
-
-        NormalEchelonHolder.color = Color.white;
-        ParachuteHolder.color = Color.white;
-        HOCHolder.color = Color.white;
-        NPCHolder.color = Color.white;
-        KCCOHolder.color = Color.white;
-        DeathstackHolder.color = Color.yellow;
-        ELIDHolder.color = Color.white;
-        ParadeusHolder.color = Color.white;
-    }
-    public void AddELID()
-    {
-        gameStateManager.gameState = GameStates.PlacingEchelon;
-        echelonToPlace = EchelonType.ELID;
-
-        NormalEchelonHolder.color = Color.white;
-        ParachuteHolder.color = Color.white;
-        HOCHolder.color = Color.white;
-        NPCHolder.color = Color.white;
-        KCCOHolder.color = Color.white;
-        DeathstackHolder.color = Color.white;
-        ELIDHolder.color = Color.yellow;
-        ParadeusHolder.color = Color.white;
-    }
-    public void AddParadeus()
-    {
-        gameStateManager.gameState = GameStates.PlacingEchelon;
-        echelonToPlace = EchelonType.Paradeus;
-
-        NormalEchelonHolder.color = Color.white;
-        ParachuteHolder.color = Color.white;
-        HOCHolder.color = Color.white;
-        NPCHolder.color = Color.white;
-        KCCOHolder.color = Color.white;
-        DeathstackHolder.color = Color.white;
-        ELIDHolder.color = Color.white;
-        ParadeusHolder.color = Color.yellow;
+        EnemyHolder.color = Color.yellow;
     }
 
     public void Cancel()
@@ -152,10 +89,7 @@ public class AddEchelonsMenu : MonoBehaviour
         ParachuteHolder.color = Color.white;
         HOCHolder.color = Color.white;
         NPCHolder.color = Color.white;
-        KCCOHolder.color = Color.white;
-        DeathstackHolder.color = Color.white;
-        ELIDHolder.color = Color.white;
-        ParadeusHolder.color = Color.white;
+        EnemyHolder.color = Color.white;
     }
 
     public void AddEchelonToNode(NodeBehavior node)
@@ -165,10 +99,7 @@ public class AddEchelonsMenu : MonoBehaviour
         ParachuteHolder.color = Color.white;
         HOCHolder.color = Color.white;
         NPCHolder.color = Color.white;
-        KCCOHolder.color = Color.white;
-        DeathstackHolder.color = Color.white;
-        ELIDHolder.color = Color.white;
-        ParadeusHolder.color = Color.white;
+        EnemyHolder.color = Color.white;
 
         echelonsManager.AddEchelon(echelonToPlace, node);
     }

@@ -18,6 +18,8 @@ public class MainMenu : MonoBehaviour
             Directory.CreateDirectory(Application.dataPath + "/MapImages/");
         if (!Directory.Exists(Application.dataPath + "/MapData/"))
             Directory.CreateDirectory(Application.dataPath + "/MapData/");
+        if (!Directory.Exists(Application.dataPath + "/EnemySprites/"))
+            Directory.CreateDirectory(Application.dataPath + "/EnemySprites/");
 
         loadMapCaption.text = "Source: " + Application.dataPath + "/MapData/";
         newMapCaption.text = "Source: " + Application.dataPath + "/MapImages/";
