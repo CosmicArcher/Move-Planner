@@ -10,3 +10,6 @@ Enemy sprites and faction are now customizable, sprite png should be put in the 
 v1.3 update:
 Editing existing map data is now possible
 Node types and setting them in the editor exists now, no difference from regular nodes yet
+
+v1.4 update:
+Scrolling the map and zooming in when not editing/placing a node or echelon

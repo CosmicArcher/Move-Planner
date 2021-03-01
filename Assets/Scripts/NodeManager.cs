@@ -15,10 +15,22 @@ public class NodeManager : MonoBehaviour
     private List<GameObject> nodes = new List<GameObject>();
     private Dictionary<Faction, List<NodeBehavior>> surroundedNodes = new Dictionary<Faction, List<NodeBehavior>>();
 
+    private bool isDragging = false;
+    private Vector3 startPosition;
+
     private void Awake()
     {
         if (!surroundedNodes.ContainsKey(Faction.Blue))
             SetupDictionary();
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDragging)
+        {
+            map.transform.position += Input.mousePosition - startPosition;
+            startPosition = Input.mousePosition;
+        }
     }
 
     public void SetupDictionary()
@@ -84,7 +96,6 @@ public class NodeManager : MonoBehaviour
         newNode.GetComponent<RectTransform>().sizeDelta = size;
         behavior.SetOwner(owner);
         behavior.SetNodeType(nodeType);
-
         nodes.Add(newNode);
 
         return behavior;
@@ -130,5 +141,40 @@ public class NodeManager : MonoBehaviour
         {
             node.GetComponent<NodeBehavior>().CheckSurroundingFactions();
         }
+    }
+
+    public void DragMap()
+    {
+        if (gameStateManager.gameState == GameStates.Default)
+        {
+            startPosition = Input.mousePosition;
+            isDragging = true;
+        }
+    }
+
+    public void StopDragging()
+    {
+        isDragging = false;
+    }
+
+    public void AdjustMapSize()
+    {
+        if (gameStateManager.gameState == GameStates.Default)
+        {
+            float scale = 0.05f;
+            map.transform.localScale += new Vector3(Input.mouseScrollDelta.y * scale, Input.mouseScrollDelta.y * scale);
+        }
+    }
+
+    public void SwitchToDefault()
+    {
+        if (gameStateManager.gameState == GameStates.PlacingNodes)
+            gameStateManager.gameState = GameStates.Default;
+    }
+
+    public void SwitchToEditing()
+    {
+        if (gameStateManager.gameState == GameStates.Default)
+            gameStateManager.gameState = GameStates.PlacingNodes;
     }
 }

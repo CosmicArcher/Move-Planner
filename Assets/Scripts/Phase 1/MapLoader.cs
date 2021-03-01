@@ -89,7 +89,7 @@ public class MapLoader : MonoBehaviour
         List<NodeBehavior> nodeBehaviors = new List<NodeBehavior>();
         foreach (MapDataFileHandler.MapData.NodeData node in data.nodes)
         {
-            Vector2 size = image.GetComponent<RectTransform>().sizeDelta;
+            Vector2 size = image.GetComponent<RectTransform>().rect.size;
             nodeBehaviors.Add(nodeManager.CreateNodeAtCoordinates(new Vector2(node.nodeLocationPerc.x * size.x, node.nodeLocationPerc.y * size.y),
                 new Vector2(node.nodeSizePerc.x * size.x, node.nodeSizePerc.y * size.y), node.nodeFaction, node.nodeType));
         }
