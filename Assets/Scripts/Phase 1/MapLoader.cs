@@ -13,14 +13,20 @@ public class MapLoader : MonoBehaviour
     [SerializeField] private GameObject saveParent;
 
     [SerializeField] private GameObject nextStageHolder;
-    [SerializeField] private GameObject nextStage;
+    [SerializeField] private GameObject planner;
+    [SerializeField] private GameObject editor;
     [SerializeField] private GameObject holderObject;
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject mainMenu;
 
+    [SerializeField] private GameStateManager gameStateManager;
+    [SerializeField] private NodeEditor nodeEditor;
+
     private string[] files;
     private List<GameObject> saves = new List<GameObject>();
     private int currentSelectedSave = 0;
+
+    private bool editingMap;
 
     private void OnEnable()
     {
@@ -45,6 +51,13 @@ public class MapLoader : MonoBehaviour
 
     public void LoadMap()
     {
+        editingMap = false;
+        StartCoroutine(LoadNodes());
+    }
+
+    public void EditMap()
+    {
+        editingMap = true;
         StartCoroutine(LoadNodes());
     }
 
@@ -60,7 +73,15 @@ public class MapLoader : MonoBehaviour
         if (isLoaded)
             image.texture = sampleTex;
 
-        nextStage.SetActive(true);
+        if (!editingMap)
+            planner.SetActive(true);
+        else
+        {
+            nodeEditor.SetMapPath(data.MapAddress);
+            gameStateManager.gameState = GameStates.PlacingNodes;
+            editor.SetActive(true);
+        }
+
         nextStageHolder.SetActive(true);
         yield return new WaitForEndOfFrame();
         startPanel.SetActive(false);
@@ -70,7 +91,7 @@ public class MapLoader : MonoBehaviour
         {
             Vector2 size = image.GetComponent<RectTransform>().sizeDelta;
             nodeBehaviors.Add(nodeManager.CreateNodeAtCoordinates(new Vector2(node.nodeLocationPerc.x * size.x, node.nodeLocationPerc.y * size.y),
-                new Vector2(node.nodeSizePerc.x * size.x, node.nodeSizePerc.y * size.y), node.nodeFaction));
+                new Vector2(node.nodeSizePerc.x * size.x, node.nodeSizePerc.y * size.y), node.nodeFaction, node.nodeType));
         }
 
         for (int i = 0; i < nodeBehaviors.Count; i++)

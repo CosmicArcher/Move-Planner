@@ -11,11 +11,15 @@ public class NodeEditor : MonoBehaviour
     [SerializeField] private GameObject editorHolder;
     [SerializeField] private GameObject plannerHolder;
 
+    [SerializeField] private GameObject helpHolder;
+    [SerializeField] private GameObject toolsHolder;
+
     private NodeBehavior selectedNode;
 
     [SerializeField] private GameObject mapNameInputHolder;
     [SerializeField] private Text mapNameInputLabel;
     [SerializeField] private InputField mapNameInput;
+    private string mapPath;
     private bool submitted = false;
 
     private List<GameObject> highlightedNodes = new List<GameObject>();
@@ -177,6 +181,15 @@ public class NodeEditor : MonoBehaviour
         DeselectNode();
     }
 
+    public void SetNodeType(int type)
+    {
+        if (selectedNode != null)
+        {
+            selectedNode.SetNodeType((NodeType)type);
+            DeselectNode();
+        }
+    }
+
     public void SaveMapAndBeginPlanner()
     {
         DeselectNode();
@@ -194,7 +207,7 @@ public class NodeEditor : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        mapSaver.SaveFile(mapNameInput.text);
+        mapSaver.SaveFile(mapNameInput.text, mapPath);
         gameStateManager.gameState = GameStates.Default;
         editorHolder.SetActive(false);
         plannerHolder.SetActive(true);
@@ -203,10 +216,27 @@ public class NodeEditor : MonoBehaviour
         mapNameInputHolder.SetActive(false);
     }
 
+    public void SetMapPath(string path)
+    {
+        mapPath = path;
+    }
+
     public void Submit()
     {
         if (mapNameInput.text.Length > 0)
             submitted = true;
+    }
+
+    public void CheckHelp()
+    {
+        helpHolder.SetActive(true);
+        toolsHolder.SetActive(false);
+    }
+
+    public void CheckTools()
+    {
+        helpHolder.SetActive(false);
+        toolsHolder.SetActive(true);
     }
 
     public void Exit()

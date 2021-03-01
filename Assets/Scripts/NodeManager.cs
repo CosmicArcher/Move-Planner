@@ -57,7 +57,7 @@ public class NodeManager : MonoBehaviour
         }
     }
     
-    public NodeBehavior CreateNodeAtCoordinates(Vector2 location, Vector2 size, Faction owner)
+    public NodeBehavior CreateNodeAtCoordinates(Vector2 location, Vector2 size, Faction owner, NodeType nodeType)
     {
         if (!surroundedNodes.ContainsKey(Faction.Blue))
             SetupDictionary();
@@ -83,6 +83,7 @@ public class NodeManager : MonoBehaviour
 
         newNode.GetComponent<RectTransform>().sizeDelta = size;
         behavior.SetOwner(owner);
+        behavior.SetNodeType(nodeType);
 
         nodes.Add(newNode);
 

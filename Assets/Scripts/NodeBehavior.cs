@@ -11,6 +11,19 @@ public enum Faction
     Yellow = 3
 }
 
+public enum NodeType
+{
+    Regular = 0,
+    HQ = 1,
+    Helipad = 2,
+    HeavyHelipad = 3,
+    Crate = 4,
+    SupplyFlag = 5,
+    Radar = 6,
+    ClosedHeli = 7,
+    ClosedHeavyHeli = 8
+}
+
 public class NodeBehavior : MonoBehaviour
 {
     private List<NodeBehavior> connectedNodes = new List<NodeBehavior>();
@@ -20,6 +33,8 @@ public class NodeBehavior : MonoBehaviour
     private NodeEditor editor;
     private GameStateManager gameStateManager;
     private MovePlanner planner;
+    private NodeType type;
+    private Sprite baseSprite;
 
     private void Awake()
     {
@@ -73,6 +88,48 @@ public class NodeBehavior : MonoBehaviour
     public Faction GetOwner()
     {
         return owner;
+    }
+
+    public void SetNodeType(NodeType nodeType)
+    {
+        if (baseSprite == null)
+            baseSprite = gameObject.GetComponent<Image>().sprite;
+        switch (nodeType)
+        {
+            case NodeType.Regular:
+                gameObject.GetComponent<Image>().sprite = baseSprite;
+                break;
+            case NodeType.HQ:
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/HQ");
+                break;
+            case NodeType.Helipad:
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Heli");
+                break;
+            case NodeType.HeavyHelipad:
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/HeavyHeli");
+                break;
+            case NodeType.Crate:
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Crate");
+                break;
+            case NodeType.SupplyFlag:
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/SupplyFlag");
+                break;
+            case NodeType.Radar:
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Radar");
+                break;
+            case NodeType.ClosedHeli:
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/ClosedHeli");
+                break;
+            case NodeType.ClosedHeavyHeli:
+                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/ClosedHeavyHeli");
+                break;
+        }
+        type = nodeType;
+    }
+
+    public NodeType GetNodeType()
+    {
+        return type;
     }
 
     public void SetNodeManager(NodeManager nodeManager)

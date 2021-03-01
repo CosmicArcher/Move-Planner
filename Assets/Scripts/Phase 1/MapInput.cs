@@ -16,6 +16,7 @@ public class MapInput : MonoBehaviour
     [SerializeField] private GameObject holderObject;
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private NodeEditor nodeEditor;
 
     private string[] files;
     private List<GameObject> previews = new List<GameObject>();
@@ -65,14 +66,10 @@ public class MapInput : MonoBehaviour
 
         gameStateManager.gameState = GameStates.PlacingNodes;
 
+        nodeEditor.SetMapPath(files[currentSelectedMap].Remove(0, (Application.dataPath + "/MapImages/").Length));
         nextStage.SetActive(true);
         nextStageHolder.SetActive(true);
         startPanel.SetActive(false);
-    }
-
-    public string GetUsedMapPath()
-    {
-        return files[currentSelectedMap].Remove(0, (Application.dataPath + "/MapImages/").Length);
     }
 
     public void ClearPreviews()

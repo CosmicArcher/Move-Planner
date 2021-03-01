@@ -20,6 +20,7 @@ public class MapDataFileHandler : MonoBehaviour
             public Vector2 nodeSizePerc;
             public Faction nodeFaction;
             public List<int> connectedNodes;
+            public NodeType nodeType;
         }
 
         public string MapAddress;
@@ -33,8 +34,9 @@ public class MapDataFileHandler : MonoBehaviour
             data.nodeLocationPerc = new Vector2(rectTransform.anchoredPosition.x / baseSize.x, rectTransform.anchoredPosition.y / baseSize.y);
             data.nodeSizePerc = new Vector2(rectTransform.sizeDelta.x / baseSize.x, rectTransform.sizeDelta.y / baseSize.y);
             data.nodeFaction = node.GetOwner();
-            data.connectedNodes = new List<int>();
+            data.nodeType = node.GetNodeType();
 
+            data.connectedNodes = new List<int>();
             for (int i = 0; i < node.GetConnectedNodes().Count; i++)
                 data.connectedNodes.Add(nodeList.IndexOf(node.GetConnectedNodes()[i]) + 1);
 
@@ -48,7 +50,7 @@ public class MapDataFileHandler : MonoBehaviour
         }
     }
 
-    public void SaveFile(string name)
+    public void SaveFile(string name, string imagePath)
     {
         List<GameObject> nodeList = nodeManager.GetNodeList();
         List<NodeBehavior> nodeBehaviors = new List<NodeBehavior>();
@@ -58,7 +60,7 @@ public class MapDataFileHandler : MonoBehaviour
         MapData mapData = new MapData();
         Vector2 baseSize = image.GetComponent<RectTransform>().sizeDelta;
         mapData.AddNodes(nodeBehaviors, baseSize);
-        mapData.MapAddress = mapChooser.GetUsedMapPath();
+        mapData.MapAddress = imagePath;
 
         string json = JsonUtility.ToJson(mapData, true);
         File.WriteAllText(Application.dataPath + "/MapData/" + name + ".json", json);
