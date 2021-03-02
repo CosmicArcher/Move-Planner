@@ -58,7 +58,7 @@ public class MapDataFileHandler : MonoBehaviour
             nodeBehaviors.Add(nodeList[i].GetComponent<NodeBehavior>());
 
         MapData mapData = new MapData();
-        Vector2 baseSize = image.GetComponent<RectTransform>().sizeDelta;
+        Vector2 baseSize = image.GetComponent<RectTransform>().rect.size;
         mapData.AddNodes(nodeBehaviors, baseSize);
         mapData.MapAddress = imagePath;
 
