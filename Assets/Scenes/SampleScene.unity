@@ -5780,6 +5780,8 @@ MonoBehaviour:
   InputField: {fileID: 1468012827}
   enemyCreatorHolder: {fileID: 1942237193}
   enemyCreator: {fileID: 1942237195}
+  enemySpawn: {fileID: 5310193800651106238, guid: 623706cec11a5bf43b0ef77568b59cd4,
+    type: 3}
 --- !u!114 &622208615
 MonoBehaviour:
   m_ObjectHideFlags: 0

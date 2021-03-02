@@ -115,6 +115,28 @@ public class NodeManager : MonoBehaviour
         nodes.Remove(node);
     }
 
+    public int GetAPFromNodes()
+    {
+        int APFromNodes = 0;
+        foreach(GameObject gameObject in nodes)
+        {
+            NodeBehavior node = gameObject.GetComponent<NodeBehavior>();
+            switch (node.GetNodeType())
+            {
+                case NodeType.HQ:
+                case NodeType.Helipad:
+                case NodeType.HeavyHelipad:
+                case NodeType.ClosedHeli:
+                case NodeType.ClosedHeavyHeli:
+                    if (node.GetOwner() == Faction.Blue)
+                        APFromNodes++;
+                    break;
+            }
+        }
+
+        return APFromNodes;
+    }
+
     public void MarkNodeForSurround(NodeBehavior node, Faction surroundingFaction)
     {
         surroundedNodes[surroundingFaction].Add(node);

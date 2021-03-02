@@ -38,71 +38,90 @@ public class EchelonsManager : MonoBehaviour
     [SerializeField] private EnemyCreator enemyCreator;
     private bool creatingNewEnemy = false;
 
+    [SerializeField] private GameObject enemySpawn;
+
     public void AddEchelon(EchelonType type, NodeBehavior node)
     {
-        GameObject newEchelon = null;
-        switch (type)
+        bool valid = false;
+        if (type == EchelonType.Enemy || type == EchelonType.NPC)
+            valid = true;
+        else if (node.GetOwner() == Faction.Blue)
         {
-            case EchelonType.RegularGriffin:
-                newEchelon = Instantiate(regularEcheTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                regularEchelons.Add(newEchelon.GetComponent<EchelonBehavior>());
-                planner.AddEchelon();
-                StartCoroutine(InputEchelonName(newEchelon.GetComponent<EchelonBehavior>()));
-                break;
-            case EchelonType.Parachute:
-                newEchelon = Instantiate(parachuteTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                parachuteEchelons.Add(newEchelon.GetComponent<ParachuteBehavior>());
-                planner.AddEchelon();
-                StartCoroutine(InputEchelonName(newEchelon.GetComponent<EchelonBehavior>()));
-                break;
-            case EchelonType.HOC:
-                newEchelon = Instantiate(HOCTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                HOCs.Add(newEchelon.GetComponent<EchelonBehavior>());
-                planner.AddHOC();
-                StartCoroutine(InputEchelonName(newEchelon.GetComponent<EchelonBehavior>()));
-                break;
-            case EchelonType.NPC:
-                newEchelon = Instantiate(NPCTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                NPCs.Add(newEchelon.GetComponent<EchelonBehavior>());
-                break;
-            case EchelonType.Enemy:
-                newEchelon = Instantiate(regularEnemyTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                enemies.Add(newEchelon.GetComponent<EchelonBehavior>());
-                StartCoroutine(InputEnemyAttributes(newEchelon.GetComponent<EchelonBehavior>()));
-                break;
-        }
-        EchelonBehavior behavior = newEchelon.GetComponent<EchelonBehavior>();
-        behavior.SetNode(node);
-        allEchelons.Add(behavior);
-
-        if (type == EchelonType.RegularGriffin || type == EchelonType.Parachute)
-        {
-            if (retreatedEchelons.Count > 0)
-                behavior.SetID(retreatedEchelons.Dequeue());
-            else
-                behavior.SetID(regularEchelons.Count + parachuteEchelons.Count);
-        }
-        else if (type == EchelonType.HOC)
-        {
-            if (retreatedHOCs.Count > 0)
-                behavior.SetID(retreatedHOCs.Dequeue());
-            else
-                behavior.SetID(HOCs.Count);
+            if (node.GetNodeType() == NodeType.HeavyHelipad)
+                valid = true;
+            else if (type != EchelonType.HOC)
+            {
+                if (node.GetNodeType() == NodeType.HQ || node.GetNodeType() == NodeType.Helipad)
+                    valid = true;
+            }
         }
 
-        if (gameStateManager.factionMoving == FactionTurn.Blue)
+        if (valid)
         {
-            if (behavior.GetFaction() == Faction.Blue)
-                if (type != EchelonType.NPC)
-                    planner.AdjustAP(-1);
+            GameObject newEchelon = null;
+            switch (type)
+            {
+                case EchelonType.RegularGriffin:
+                    newEchelon = Instantiate(regularEcheTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
+                    regularEchelons.Add(newEchelon.GetComponent<EchelonBehavior>());
+                    planner.AddEchelon();
+                    StartCoroutine(InputEchelonName(newEchelon.GetComponent<EchelonBehavior>()));
+                    break;
+                case EchelonType.Parachute:
+                    newEchelon = Instantiate(parachuteTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
+                    parachuteEchelons.Add(newEchelon.GetComponent<ParachuteBehavior>());
+                    planner.AddEchelon();
+                    StartCoroutine(InputEchelonName(newEchelon.GetComponent<EchelonBehavior>()));
+                    break;
+                case EchelonType.HOC:
+                    newEchelon = Instantiate(HOCTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
+                    HOCs.Add(newEchelon.GetComponent<EchelonBehavior>());
+                    planner.AddHOC();
+                    StartCoroutine(InputEchelonName(newEchelon.GetComponent<EchelonBehavior>()));
+                    break;
+                case EchelonType.NPC:
+                    newEchelon = Instantiate(NPCTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
+                    NPCs.Add(newEchelon.GetComponent<EchelonBehavior>());
+                    break;
+                case EchelonType.Enemy:
+                    newEchelon = Instantiate(regularEnemyTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
+                    enemies.Add(newEchelon.GetComponent<EchelonBehavior>());
+                    StartCoroutine(InputEnemyAttributes(newEchelon.GetComponent<EchelonBehavior>()));
+                    break;
+            }
+            EchelonBehavior behavior = newEchelon.GetComponent<EchelonBehavior>();
+            behavior.SetNode(node);
+            allEchelons.Add(behavior);
+
+            if (type == EchelonType.RegularGriffin || type == EchelonType.Parachute)
+            {
+                if (retreatedEchelons.Count > 0)
+                    behavior.SetID(retreatedEchelons.Dequeue());
+                else
+                    behavior.SetID(regularEchelons.Count + parachuteEchelons.Count);
+            }
+            else if (type == EchelonType.HOC)
+            {
+                if (retreatedHOCs.Count > 0)
+                    behavior.SetID(retreatedHOCs.Dequeue());
+                else
+                    behavior.SetID(HOCs.Count);
+            }
+
+            if (gameStateManager.factionMoving == FactionTurn.Blue)
+            {
+                if (behavior.GetFaction() == Faction.Blue)
+                    if (type != EchelonType.NPC)
+                        planner.AdjustAP(-1);
+            }
+
+            newEchelon.transform.localScale = new Vector3(node.GetComponent<RectTransform>().rect.width / 200, node.GetComponent<RectTransform>().rect.height / 200, 1);
+
+            EventTrigger.Entry ClickEntry = new EventTrigger.Entry();
+            ClickEntry.eventID = EventTriggerType.PointerClick;
+            ClickEntry.callback.AddListener(delegate { SelectEchelon(behavior); });
+            newEchelon.GetComponent<EventTrigger>().triggers.Add(ClickEntry);
         }
-
-        newEchelon.transform.localScale = new Vector3(node.GetComponent<RectTransform>().rect.width / 200, node.GetComponent<RectTransform>().rect.height / 200, 1);
-
-        EventTrigger.Entry ClickEntry = new EventTrigger.Entry();
-        ClickEntry.eventID = EventTriggerType.PointerClick;
-        ClickEntry.callback.AddListener(delegate { SelectEchelon(behavior); });
-        newEchelon.GetComponent<EventTrigger>().triggers.Add(ClickEntry);
     }
 
     private IEnumerator InputEchelonName(EchelonBehavior behavior)
@@ -240,6 +259,11 @@ public class EchelonsManager : MonoBehaviour
         }
     }
 
+    public int GetAPFromEches()
+    {
+        return regularEchelons.Count + parachuteEchelons.Count + HOCs.Count;
+    }
+
     public void SelectEchelonByNode(NodeBehavior node)
     {
         foreach(EchelonBehavior echelon in allEchelons)
@@ -317,7 +341,8 @@ public class EchelonsManager : MonoBehaviour
                 ParachuteBehavior para = selectedEchelon as ParachuteBehavior;
                 if (para.GetCooldown() == 0)
                 {
-                    if (GetEchelonAtNode(node) == null)
+                    if (GetEchelonAtNode(node) == null && (node.GetNodeType() == NodeType.Helipad || node.GetNodeType() == NodeType.HeavyHelipad ||
+                        node.GetNodeType() == NodeType.ClosedHeli || node.GetNodeType() == NodeType.ClosedHeavyHeli))
                     {
                         para.UsePara();
                         selectedEchelon.SetNode(node);
@@ -330,6 +355,37 @@ public class EchelonsManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void SpawnEnemiesAtHelis(List<GameObject> nodes, Faction faction) 
+    {
+        foreach(GameObject nodeObject in nodes)
+        {
+            NodeBehavior node = nodeObject.GetComponent<NodeBehavior>();
+            if (GetEchelonAtNode(node) == null)
+            {
+                if (node.GetOwner() == faction)
+                {
+                    if (node.GetNodeType() == NodeType.Helipad || node.GetNodeType() == NodeType.HeavyHelipad)
+                    {
+                        GameObject newEchelon = Instantiate(enemySpawn, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
+                        EchelonBehavior behavior = newEchelon.GetComponent<EchelonBehavior>();
+                        enemies.Add(behavior);
+
+                        behavior.SetFaction(faction);
+                        behavior.SetNode(node);
+                        allEchelons.Add(behavior);
+
+                        newEchelon.transform.localScale = new Vector3(node.GetComponent<RectTransform>().rect.width / 200, node.GetComponent<RectTransform>().rect.height / 200, 1);
+
+                        EventTrigger.Entry ClickEntry = new EventTrigger.Entry();
+                        ClickEntry.eventID = EventTriggerType.PointerClick;
+                        ClickEntry.callback.AddListener(delegate { SelectEchelon(behavior); });
+                        newEchelon.GetComponent<EventTrigger>().triggers.Add(ClickEntry);
+                    }
+                }
+            }
+        }
     }
 
     public void Submit()

@@ -13,3 +13,10 @@ Node types and setting them in the editor exists now, no difference from regular
 
 v1.4 update:
 Scrolling the map and zooming in when not editing/placing a node or echelon
+
+v1.5 update:
+AP at the start of each turn is now automatically calculated using the number of HQs, helis, HOCs, and echelons around at the start of the turn
+Deploying HOCs can only be done on open heavy helis now
+Deploying echelons can only be done on HQs and open helis now
+Parachuting can only be done on unoccupied helis now
+Default enemy spawns now spawn from every open heli of the faction at the start of their turn, for helis that are supposed to not spawn anything just remove them when they spawn

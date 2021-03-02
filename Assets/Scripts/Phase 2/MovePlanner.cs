@@ -62,21 +62,10 @@ public class MovePlanner : MonoBehaviour
         hocsDeployedText.text = "HOCs Deployed: " + hocsDeployed + "/4";
     }
 
-    public IEnumerator SetAP()
+    public void SetAP()
     {
-        inputFieldHolder.SetActive(true);
-        inputFieldLabel.text = "Starting AP for the turn:";
-
-        submitted = false;
-        while (!submitted)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-
-        AP = int.Parse(inputField.text);
+        AP = nodeManager.GetAPFromNodes() + echelonsManager.GetAPFromEches();
         APText.text = "AP: " + AP;
-        inputField.text = "";
-        inputFieldHolder.SetActive(false);
     }
 
     public void AdjustAP(int amount)
@@ -106,12 +95,12 @@ public class MovePlanner : MonoBehaviour
         inputField.text = "";
         inputFieldHolder.SetActive(false);
 
-        StartCoroutine(SetAP());
+        SetAP();
     }
 
     public void NextTurn()
     {
-        StartCoroutine(SetAP());
+        SetAP();
         turn++;
         turnText.text = "Turn: " + turn;
     }
@@ -160,11 +149,13 @@ public class MovePlanner : MonoBehaviour
                 if (redHasTurn)
                 {
                     nodeManager.TriggerSurroundCaptures(Faction.Red);
+                    echelonsManager.SpawnEnemiesAtHelis(nodeManager.GetNodeList(), Faction.Red);
                     gameStateManager.factionMoving = FactionTurn.Red;
                 }
                 else if (yellowHasTurn)
                 {
                     nodeManager.TriggerSurroundCaptures(Faction.Yellow);
+                    echelonsManager.SpawnEnemiesAtHelis(nodeManager.GetNodeList(), Faction.Yellow);
                     gameStateManager.factionMoving = FactionTurn.Yellow;
                 }
                 else
@@ -177,6 +168,7 @@ public class MovePlanner : MonoBehaviour
                 if (yellowHasTurn)
                 {
                     nodeManager.TriggerSurroundCaptures(Faction.Yellow);
+                    echelonsManager.SpawnEnemiesAtHelis(nodeManager.GetNodeList(), Faction.Yellow);
                     gameStateManager.factionMoving = FactionTurn.Yellow;
                 }
                 else
