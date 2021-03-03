@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class NodeEditor : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class NodeEditor : MonoBehaviour
 
     [SerializeField] private GameObject helpHolder;
     [SerializeField] private GameObject toolsHolder;
+    [SerializeField] private GameObject typeHolder;
+
+    [SerializeField] private InputField turnChangeInput;
+    [SerializeField] private GameObject typeChangeOnTurnPreviewTemplate;
+    [SerializeField] private GameObject typeChangeOnTurnPreviewHolder;
+    private List<GameObject> typeChangeOnTurnList = new List<GameObject>();
 
     private NodeBehavior selectedNode;
 
@@ -23,6 +30,11 @@ public class NodeEditor : MonoBehaviour
     private bool submitted = false;
 
     private List<GameObject> highlightedNodes = new List<GameObject>();
+
+    private void Awake()
+    {
+        turnChangeInput.text = "0";
+    }
 
     public void SelectNode(NodeBehavior node)
     {
@@ -38,6 +50,8 @@ public class NodeEditor : MonoBehaviour
                     highlightedNodes.Add(adjacent.gameObject);
                     adjacent.GetComponent<Image>().color = Color.magenta;
                 }
+
+                PreviewTypeChangeList();
             }
             else if (gameStateManager.gameState == GameStates.Connecting)
             {
@@ -77,6 +91,8 @@ public class NodeEditor : MonoBehaviour
 
             nodeManager.DeleteNode(selectedNode.gameObject);
             Destroy(selectedNode.gameObject);
+
+            ClearTypeChangeList();
         }
     }
 
@@ -141,6 +157,8 @@ public class NodeEditor : MonoBehaviour
             }
 
             highlightedNodes.Clear();
+
+            ClearTypeChangeList();
         }
     }
 
@@ -185,8 +203,62 @@ public class NodeEditor : MonoBehaviour
     {
         if (selectedNode != null)
         {
-            selectedNode.SetNodeType((NodeType)type);
-            DeselectNode();
+            int turn;
+            if (int.TryParse(turnChangeInput.text, out turn))
+            {
+                if (turn <= 0)
+                    selectedNode.SetNodeType((NodeType)type);
+                else if (!selectedNode.GetTypeChangeList().ContainsKey(turn))
+                {
+                    selectedNode.AddTypeChangeOnTurn(turn, (NodeType)type);
+                    GameObject newPreview = Instantiate(typeChangeOnTurnPreviewTemplate, typeChangeOnTurnPreviewHolder.transform);
+
+                    int y = typeChangeOnTurnList.Count;
+                    newPreview.GetComponentInChildren<Button>().onClick.AddListener(delegate { RemoveNodeTypeChange(turn, y); });
+                    newPreview.GetComponentInChildren<Text>().text = "Turn: " + turn;
+                    newPreview.GetComponentInChildren<Image>().sprite = nodeManager.GetSpriteOfType((NodeType)type);
+
+                    typeChangeOnTurnList.Add(newPreview);
+                }
+            }
+        }
+    }
+
+    private void PreviewTypeChangeList()
+    {
+        if (selectedNode != null)
+        {
+            Dictionary<int, NodeType> typeChangeList = selectedNode.GetTypeChangeList();
+            List<int> keys = typeChangeList.Keys.ToList();
+            keys.Sort();
+            foreach (int turn in keys)
+            {
+                GameObject newPreview = Instantiate(typeChangeOnTurnPreviewTemplate, typeChangeOnTurnPreviewHolder.transform);
+
+                int y = typeChangeOnTurnList.Count;
+                newPreview.GetComponentInChildren<Button>().onClick.AddListener(delegate { RemoveNodeTypeChange(turn, y); });
+                newPreview.GetComponentInChildren<Text>().text = "Turn: " + turn;
+                newPreview.GetComponentInChildren<Image>().sprite = nodeManager.GetSpriteOfType(typeChangeList[turn]);
+
+                typeChangeOnTurnList.Add(newPreview);
+            }
+        }
+    }
+    
+    private void ClearTypeChangeList()
+    {
+        foreach (GameObject preview in typeChangeOnTurnList)
+            Destroy(preview);
+        typeChangeOnTurnList.Clear();
+    }
+
+    public void RemoveNodeTypeChange(int turn, int index)
+    {
+        if (selectedNode != null)
+        {
+            selectedNode.RemoveTypeChangeOnTurn(turn);
+            Destroy(typeChangeOnTurnList[index]);
+            typeChangeOnTurnList.RemoveAt(index);
         }
     }
 
@@ -231,12 +303,21 @@ public class NodeEditor : MonoBehaviour
     {
         helpHolder.SetActive(true);
         toolsHolder.SetActive(false);
+        typeHolder.SetActive(false);
     }
 
     public void CheckTools()
     {
         helpHolder.SetActive(false);
         toolsHolder.SetActive(true);
+        typeHolder.SetActive(false);
+    }
+
+    public void CheckTypeChanger()
+    {
+        helpHolder.SetActive(false);
+        toolsHolder.SetActive(false);
+        typeHolder.SetActive(true);
     }
 
     public void Exit()

@@ -20,3 +20,6 @@ Deploying HOCs can only be done on open heavy helis now
 Deploying echelons can only be done on HQs and open helis now
 Parachuting can only be done on unoccupied helis now
 Default enemy spawns now spawn from every open heli of the faction at the start of their turn, for helis that are supposed to not spawn anything just remove them when they spawn
+
+v1.6 update:
+Nodes can now change type on set turns

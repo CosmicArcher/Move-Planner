@@ -34,7 +34,8 @@ public class NodeBehavior : MonoBehaviour
     private GameStateManager gameStateManager;
     private MovePlanner planner;
     private NodeType type;
-    private Sprite baseSprite;
+
+    private Dictionary<int, NodeType> typeChangeList = new Dictionary<int, NodeType>();
 
     private void Awake()
     {
@@ -92,39 +93,39 @@ public class NodeBehavior : MonoBehaviour
 
     public void SetNodeType(NodeType nodeType)
     {
-        if (baseSprite == null)
-            baseSprite = gameObject.GetComponent<Image>().sprite;
-        switch (nodeType)
-        {
-            case NodeType.Regular:
-                gameObject.GetComponent<Image>().sprite = baseSprite;
-                break;
-            case NodeType.HQ:
-                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/HQ");
-                break;
-            case NodeType.Helipad:
-                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Heli");
-                break;
-            case NodeType.HeavyHelipad:
-                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/HeavyHeli");
-                break;
-            case NodeType.Crate:
-                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Crate");
-                break;
-            case NodeType.SupplyFlag:
-                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/SupplyFlag");
-                break;
-            case NodeType.Radar:
-                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Radar");
-                break;
-            case NodeType.ClosedHeli:
-                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/ClosedHeli");
-                break;
-            case NodeType.ClosedHeavyHeli:
-                gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/ClosedHeavyHeli");
-                break;
-        }
+        gameObject.GetComponent<Image>().sprite = manager.GetSpriteOfType(nodeType);
         type = nodeType;
+    }
+
+    public void AddTypeChangeOnTurn(int turn, NodeType type)
+    {
+        typeChangeList.Add(turn, type);
+    }
+
+    public void RemoveTypeChangeOnTurn(int turn)
+    {
+        if (typeChangeList.ContainsKey(turn))
+        {
+            typeChangeList.Remove(turn);
+        }
+    }
+
+    public void SetTypeChangeList(Dictionary<int, NodeType> list)
+    {
+        typeChangeList = list;
+    }  
+
+    public Dictionary<int, NodeType> GetTypeChangeList()
+    {
+        return typeChangeList;
+    }
+
+    public void CheckTypeChange(int turn)
+    {
+        if (typeChangeList.ContainsKey(turn))
+        {
+            SetNodeType(typeChangeList[turn]);
+        }
     }
 
     public NodeType GetNodeType()

@@ -11,6 +11,16 @@ public class NodeManager : MonoBehaviour
     [SerializeField] private NodeEditor editor;
     [SerializeField] private GameStateManager gameStateManager;
     [SerializeField] private MovePlanner planner;
+
+    [SerializeField] private Sprite regularNodeSprite;
+    [SerializeField] private Sprite HQSprite;
+    [SerializeField] private Sprite heliSprite;
+    [SerializeField] private Sprite heavyHeliSprite;
+    [SerializeField] private Sprite crateSprite;
+    [SerializeField] private Sprite supplyFlagSprite;
+    [SerializeField] private Sprite radarSprite;
+    [SerializeField] private Sprite closedHeliSprite;
+    [SerializeField] private Sprite closedHeavyHeliSprite;
     
     private List<GameObject> nodes = new List<GameObject>();
     private Dictionary<Faction, List<NodeBehavior>> surroundedNodes = new Dictionary<Faction, List<NodeBehavior>>();
@@ -69,7 +79,7 @@ public class NodeManager : MonoBehaviour
         }
     }
     
-    public NodeBehavior CreateNodeAtCoordinates(Vector2 location, Vector2 size, Faction owner, NodeType nodeType)
+    public NodeBehavior CreateNodeAtCoordinates(Vector2 location, Vector2 size, Faction owner, NodeType nodeType, List<Vector2> typeChangeList)
     {
         if (!surroundedNodes.ContainsKey(Faction.Blue))
             SetupDictionary();
@@ -96,6 +106,12 @@ public class NodeManager : MonoBehaviour
         newNode.GetComponent<RectTransform>().sizeDelta = size;
         behavior.SetOwner(owner);
         behavior.SetNodeType(nodeType);
+        
+        foreach(Vector2 entry in typeChangeList)
+        {
+            behavior.AddTypeChangeOnTurn((int)entry.x, (NodeType)entry.y);
+        }
+
         nodes.Add(newNode);
 
         return behavior;
@@ -137,6 +153,14 @@ public class NodeManager : MonoBehaviour
         return APFromNodes;
     }
 
+    public void ChangeNodesMarkedForTurn(int turn)
+    {
+        foreach(GameObject node in nodes)
+        {
+            node.GetComponent<NodeBehavior>().CheckTypeChange(turn);
+        }
+    }
+
     public void MarkNodeForSurround(NodeBehavior node, Faction surroundingFaction)
     {
         surroundedNodes[surroundingFaction].Add(node);
@@ -150,6 +174,33 @@ public class NodeManager : MonoBehaviour
                 node.SetOwner(faction);
         }
         surroundedNodes[faction].Clear();
+    }
+
+    public Sprite GetSpriteOfType(NodeType nodeType)
+    {
+        switch (nodeType)
+        {
+            case NodeType.Regular:
+                return regularNodeSprite;
+            case NodeType.HQ:
+                return HQSprite;
+            case NodeType.Helipad:
+                return heliSprite;
+            case NodeType.HeavyHelipad:
+                return heavyHeliSprite;
+            case NodeType.Crate:
+                return crateSprite;
+            case NodeType.SupplyFlag:
+                return supplyFlagSprite;
+            case NodeType.Radar:
+                return radarSprite;
+            case NodeType.ClosedHeli:
+                return closedHeliSprite;
+            case NodeType.ClosedHeavyHeli:
+                return closedHeavyHeliSprite;
+            default:
+                return regularNodeSprite;
+        }
     }
 
     public List<GameObject> GetNodeList()
