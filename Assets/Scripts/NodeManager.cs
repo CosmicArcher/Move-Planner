@@ -79,7 +79,7 @@ public class NodeManager : MonoBehaviour
         }
     }
     
-    public NodeBehavior CreateNodeAtCoordinates(Vector2 location, Vector2 size, Faction owner, NodeType nodeType, List<Vector2> typeChangeList)
+    public NodeBehavior CreateNodeAtCoordinates(Vector2 location, Vector2 size, Faction owner, NodeType nodeType, List<Vector2Int> typeChangeList)
     {
         if (!surroundedNodes.ContainsKey(Faction.Blue))
             SetupDictionary();
@@ -107,9 +107,9 @@ public class NodeManager : MonoBehaviour
         behavior.SetOwner(owner);
         behavior.SetNodeType(nodeType);
         
-        foreach(Vector2 entry in typeChangeList)
+        foreach(Vector2Int entry in typeChangeList)
         {
-            behavior.AddTypeChangeOnTurn((int)entry.x, (NodeType)entry.y);
+            behavior.AddTypeChangeOnTurn(entry.x, (NodeType)entry.y);
         }
 
         nodes.Add(newNode);

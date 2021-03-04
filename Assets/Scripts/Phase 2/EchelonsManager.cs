@@ -8,7 +8,7 @@ public class EchelonsManager : MonoBehaviour
 {
     private List<EchelonBehavior> regularEchelons = new List<EchelonBehavior>();
     private List<ParachuteBehavior> parachuteEchelons = new List<ParachuteBehavior>();
-    private List<EchelonBehavior> HOCs = new List<EchelonBehavior>();
+    private List<HOCBehavior> HOCs = new List<HOCBehavior>();
     private List<EchelonBehavior> NPCs = new List<EchelonBehavior>();
     private List<EchelonBehavior> enemies = new List<EchelonBehavior>();
     private List<EchelonBehavior> allEchelons = new List<EchelonBehavior>();
@@ -24,6 +24,7 @@ public class EchelonsManager : MonoBehaviour
     [SerializeField] private GameObject regularEnemyTemplate;
 
     private EchelonBehavior selectedEchelon;
+    private List<NodeBehavior> nodesInSelectedHOCRange;
     private Queue<int> retreatedEchelons = new Queue<int>();
     private Queue<int> retreatedHOCs = new Queue<int>();
 
@@ -32,13 +33,21 @@ public class EchelonsManager : MonoBehaviour
     [SerializeField] private GameObject InputFieldHolder;
     [SerializeField] private Text InputFieldLabel;
     [SerializeField] private InputField InputField;
+    [SerializeField] private InputField HOCRangeInput;
     private bool submitted = false;
+    private bool makingHOC = false;
 
     [SerializeField] private GameObject enemyCreatorHolder;
     [SerializeField] private EnemyCreator enemyCreator;
     private bool creatingNewEnemy = false;
 
     [SerializeField] private GameObject enemySpawn;
+
+    [SerializeField] private GameObject battleHandlerObject;
+    [SerializeField] private GameObject attackerButton;
+    [SerializeField] private GameObject defenderButton;
+    private bool attackerWins = true;
+    private bool combatSettled = false;
 
     public void AddEchelon(EchelonType type, NodeBehavior node)
     {
@@ -65,18 +74,21 @@ public class EchelonsManager : MonoBehaviour
                     newEchelon = Instantiate(regularEcheTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
                     regularEchelons.Add(newEchelon.GetComponent<EchelonBehavior>());
                     planner.AddEchelon();
+                    makingHOC = false;
                     StartCoroutine(InputEchelonName(newEchelon.GetComponent<EchelonBehavior>()));
                     break;
                 case EchelonType.Parachute:
                     newEchelon = Instantiate(parachuteTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
                     parachuteEchelons.Add(newEchelon.GetComponent<ParachuteBehavior>());
                     planner.AddEchelon();
+                    makingHOC = false;
                     StartCoroutine(InputEchelonName(newEchelon.GetComponent<EchelonBehavior>()));
                     break;
                 case EchelonType.HOC:
                     newEchelon = Instantiate(HOCTemplate, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
-                    HOCs.Add(newEchelon.GetComponent<EchelonBehavior>());
+                    HOCs.Add(newEchelon.GetComponent<HOCBehavior>());
                     planner.AddHOC();
+                    makingHOC = true;
                     StartCoroutine(InputEchelonName(newEchelon.GetComponent<EchelonBehavior>()));
                     break;
                 case EchelonType.NPC:
@@ -129,6 +141,9 @@ public class EchelonsManager : MonoBehaviour
         InputFieldHolder.SetActive(true);
         InputFieldLabel.text = "Echelon Name:";
 
+        if (makingHOC)
+            HOCRangeInput.gameObject.SetActive(true);       
+
         submitted = false;
         while (!submitted)
         {
@@ -136,6 +151,12 @@ public class EchelonsManager : MonoBehaviour
         }
 
         behavior.SetName(InputField.text);
+        if (makingHOC)
+        {
+            (behavior as HOCBehavior).SetRange(int.Parse(HOCRangeInput.text));
+            HOCRangeInput.text = "";
+            HOCRangeInput.gameObject.SetActive(false);
+        }
 
         InputFieldHolder.SetActive(false);
         InputField.text = "";
@@ -167,19 +188,71 @@ public class EchelonsManager : MonoBehaviour
             DeselectEchelon();
             selectedEchelon = echelon;
             selectedEchelon.GetComponent<Image>().color = Color.yellow;
+
             SelectedEchelonDescription.text = "Echelon: " + echelon.GetID() + "\nFaction: " + echelon.GetFaction();
+
+            if (selectedEchelon.GetFaction() == Faction.Blue && !NPCs.Contains(selectedEchelon))
+                SelectedEchelonDescription.text += "\nSupply: " + echelon.GetSupply().x + " / " + echelon.GetSupply().y;
+
             if (selectedEchelon.GetName().Length > 0)
                 SelectedEchelonDescription.text = SelectedEchelonDescription.text.Insert(0,"Name: " + selectedEchelon.GetName() + "\n");
+
             ParachuteBehavior para = echelon as ParachuteBehavior;
             if (para != null)
                 SelectedEchelonDescription.text += "\nParachute CD: " + para.GetCooldown();
+            else
+            {
+                HOCBehavior HOC = echelon as HOCBehavior;
+                if (HOC != null)
+                {
+                    SelectedEchelonDescription.text += "\nRange: " + HOC.GetRange();
+
+                    nodesInSelectedHOCRange = HOC.GetAllNodesInRange();
+                    HighlightNodesInHOCRange();
+                }
+            }
         }
+    }
+
+    private void HighlightNodesInHOCRange()
+    {
+        foreach(NodeBehavior node in nodesInSelectedHOCRange)
+        {
+            node.gameObject.GetComponent<Image>().color = Color.magenta;
+        }
+    }
+
+    private void UnhighlightNodes()
+    {
+        foreach(NodeBehavior node in nodesInSelectedHOCRange)
+        {
+            switch (node.GetOwner())
+            {
+                case Faction.Neutral:
+                    node.gameObject.GetComponent<Image>().color = Color.white;
+                    break;
+                case Faction.Blue:
+                    node.gameObject.GetComponent<Image>().color = Color.cyan;
+                    break;
+                case Faction.Red:
+                    node.gameObject.GetComponent<Image>().color = Color.red;
+                    break;
+                case Faction.Yellow:
+                    node.gameObject.GetComponent<Image>().color = Color.yellow;
+                    break;
+            }
+        }
+
+        nodesInSelectedHOCRange.Clear();
     }
 
     public void DeselectEchelon()
     {
         if (selectedEchelon != null)
         {
+            if (selectedEchelon as HOCBehavior != null)
+                UnhighlightNodes();
+
             selectedEchelon.GetComponent<Image>().color = Color.white;
             selectedEchelon = null;
             SelectedEchelonDescription.text = "";
@@ -209,19 +282,19 @@ public class EchelonsManager : MonoBehaviour
                     parachuteEchelons.Remove(echelon as ParachuteBehavior);
                     planner.RemoveEchelon();
                 }
+                else if (echelon as HOCBehavior != null)
+                {
+                    retreatedHOCs.Enqueue(echelon.GetID());
+                    HOCs.Remove(echelon as HOCBehavior);
+                    planner.RemoveHOC();
+                }
                 else
                 {
                     if (regularEchelons.Contains(echelon))
                     {
                         retreatedEchelons.Enqueue(echelon.GetID());
-                        planner.RemoveEchelon();
                         regularEchelons.Remove(echelon);
-                    }
-                    else if (HOCs.Contains(echelon))
-                    {
-                        retreatedHOCs.Enqueue(echelon.GetID());
-                        planner.RemoveHOC();
-                        HOCs.Remove(echelon);
+                        planner.RemoveEchelon();
                     }
                     else
                         NPCs.Remove(echelon);
@@ -257,6 +330,37 @@ public class EchelonsManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ResupplyEchelon()
+    {
+        if (selectedEchelon != null)
+        {
+            NodeType attachedNode = selectedEchelon.GetNode().GetNodeType();
+            if ((selectedEchelon.GetNode().GetOwner() == Faction.Blue && 
+                (attachedNode == NodeType.HeavyHelipad || attachedNode == NodeType.Helipad || attachedNode == NodeType.HQ)) || attachedNode == NodeType.Crate)
+            {
+                selectedEchelon.Resupply();
+                if (attachedNode == NodeType.Crate)
+                    selectedEchelon.GetNode().SetNodeType(NodeType.Regular);
+                DeselectEchelon();
+            }
+        }
+    }
+
+    public void ReduceRationsOnAll()
+    {
+        foreach (EchelonBehavior echelon in regularEchelons)
+            echelon.UseSupply(new Vector2Int(0, 1));
+        foreach (EchelonBehavior echelon in parachuteEchelons)
+            echelon.UseSupply(new Vector2Int(0, 1));
+        foreach (EchelonBehavior echelon in HOCs)
+            echelon.UseSupply(new Vector2Int(0, 1));
+    }
+
+    private void UseCombatSupply(EchelonBehavior echelon)
+    {
+        echelon.UseSupply(new Vector2Int(1, 1));
     }
 
     public int GetAPFromEches()
@@ -311,17 +415,43 @@ public class EchelonsManager : MonoBehaviour
                 {
                     if (blockingEchelon.GetFaction() != selectedEchelon.GetFaction())
                     {
-                        if ((selectedEchelon.GetFaction() == Faction.Blue && planner.GetAP() > 0) || NPCs.Contains(selectedEchelon) || selectedEchelon.GetFaction() != Faction.Blue)
+                        if (selectedEchelon as HOCBehavior == null)
                         {
-                            RemoveEchelon(blockingEchelon);
-                            selectedEchelon.SetNode(node);
-                            selectedEchelon.gameObject.transform.position = node.gameObject.transform.position;
+                            if ((selectedEchelon.GetFaction() == Faction.Blue && planner.GetAP() > 0) ||
+                                NPCs.Contains(selectedEchelon) || selectedEchelon.GetFaction() != Faction.Blue)
+                            {
+                                if (selectedEchelon.GetFaction() == Faction.Blue && !NPCs.Contains(selectedEchelon))
+                                {
+                                    if (selectedEchelon.GetSupply().x > 0 && selectedEchelon.GetSupply().y > 0)
+                                    {
+                                        UseCombatSupply(selectedEchelon);
+                                        planner.AdjustAP(-1);
+                                    }
+                                    else
+                                        return false;
+                                }
 
-                            if (selectedEchelon.GetFaction() == Faction.Blue && !NPCs.Contains(selectedEchelon))
-                                planner.AdjustAP(-1);
+                                if (blockingEchelon as HOCBehavior != null || 
+                                    ((regularEchelons.Contains(blockingEchelon) || blockingEchelon as ParachuteBehavior != null) &&
+                                    (blockingEchelon.GetSupply().x == 0 || blockingEchelon.GetSupply().y == 0)))
+                                {
+                                    selectedEchelon.SetNode(node);
+                                    selectedEchelon.gameObject.transform.position = node.gameObject.transform.position;
+                                    RemoveEchelon(blockingEchelon);
+                                }
+                                else
+                                {
+                                    if (blockingEchelon.GetFaction() == Faction.Blue || selectedEchelon.GetFaction() == Faction.Blue)
+                                    {
+                                        foreach (HOCBehavior HOC in HOCs)
+                                            if (HOC.IsNodeInRange(blockingEchelon.GetNode()))
+                                                HOC.UseSupply(new Vector2Int(1, 2));
+                                    }
 
-                            DeselectEchelon();
-                            return true;
+                                    StartCoroutine(DetermineCombat(blockingEchelon));
+                                }
+                                return true;
+                            }
                         }
                     }
                     else if (selectedEchelon.GetFaction() == Faction.Blue)
@@ -391,11 +521,72 @@ public class EchelonsManager : MonoBehaviour
     public void Submit()
     {
         if (InputField.text.Length > 0)
-            submitted = true;
+        {
+            if (makingHOC)
+            {
+                int x;
+                if (int.TryParse(HOCRangeInput.text, out x))
+                    submitted = true;
+            }
+            else
+                submitted = true;
+        }
     }
 
     public void CreateNewEnemy()
     {
         creatingNewEnemy = true;
+    }
+
+    public IEnumerator DetermineCombat(EchelonBehavior defender)
+    {
+        battleHandlerObject.SetActive(true);
+        attackerButton.GetComponentsInChildren<Image>()[1].sprite = selectedEchelon.GetComponent<Image>().sprite;
+        attackerButton.GetComponent<Image>().color = Color.yellow;
+        defenderButton.GetComponentsInChildren<Image>()[1].sprite = defender.gameObject.GetComponent<Image>().sprite;
+        defenderButton.GetComponent<Image>().color = Color.white;
+
+        attackerWins = true;
+        combatSettled = false;
+
+        while(!combatSettled)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        if (attackerWins)
+        {
+            selectedEchelon.SetNode(defender.GetNode());
+            selectedEchelon.gameObject.transform.position = defender.GetNode().gameObject.transform.position;
+            RemoveEchelon(defender);
+        }
+        else
+        {
+            RemoveEchelon(selectedEchelon);
+            if (defender.GetFaction() == Faction.Blue && (regularEchelons.Contains(defender) || parachuteEchelons.Contains(defender as ParachuteBehavior)))
+                UseCombatSupply(defender);
+        }
+
+        DeselectEchelon();
+        battleHandlerObject.SetActive(false);
+    }
+
+    public void SelectAttacker()
+    {
+        attackerButton.GetComponent<Image>().color = Color.yellow;
+        defenderButton.GetComponent<Image>().color = Color.white;
+        attackerWins = true;
+    }
+
+    public void SelectDefender()
+    {
+        attackerButton.GetComponent<Image>().color = Color.white;
+        defenderButton.GetComponent<Image>().color = Color.yellow;
+        attackerWins = false;
+    }
+
+    public void CompleteCombat()
+    {
+        combatSettled = true;
     }
 }

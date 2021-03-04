@@ -103,6 +103,7 @@ public class MovePlanner : MonoBehaviour
         SetAP();
         turn++;
         turnText.text = "Turn: " + turn;
+        echelonsManager.ReduceRationsOnAll();
         nodeManager.ChangeNodesMarkedForTurn(turn);
     }
 

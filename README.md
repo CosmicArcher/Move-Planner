@@ -23,3 +23,9 @@ Default enemy spawns now spawn from every open heli of the faction at the start 
 
 v1.6 update:
 Nodes can now change type on set turns
+
+v1.7 update:
+Echelon supply implemented
+If non HOC, supplied echelons fight, the user decides who wins instead of attacker always wins
+HOCs use supply whenever a blue echelon fights in its range, the nodes they cover is displayed whenever you select them
+Standard resupply rules apply

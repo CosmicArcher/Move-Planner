@@ -21,7 +21,7 @@ public class MapDataFileHandler : MonoBehaviour
             public Faction nodeFaction;
             public List<int> connectedNodes;
             public NodeType nodeType;
-            public List<Vector2> typeChangeList;
+            public List<Vector2Int> typeChangeList;
         }
 
         public string MapAddress;
@@ -37,10 +37,10 @@ public class MapDataFileHandler : MonoBehaviour
             data.nodeFaction = node.GetOwner();
             data.nodeType = node.GetNodeType();
 
-            data.typeChangeList = new List<Vector2>();
+            data.typeChangeList = new List<Vector2Int>();
             foreach (int key in node.GetTypeChangeList().Keys)
             {
-                data.typeChangeList.Add(new Vector2(key, (int)node.GetTypeChangeList()[key]));
+                data.typeChangeList.Add(new Vector2Int(key, (int)node.GetTypeChangeList()[key]));
             }
 
             data.connectedNodes = new List<int>();
