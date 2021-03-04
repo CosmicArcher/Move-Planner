@@ -29,3 +29,6 @@
 + If non HOC, supplied echelons fight, the user decides who wins instead of attacker always wins
 + HOCs use supply whenever a blue echelon fights in its range, the nodes they cover is displayed whenever you select them
 + Standard resupply rules apply
+
+## v1.8 update:
++ Spawned enemy sprites can now be adjusted

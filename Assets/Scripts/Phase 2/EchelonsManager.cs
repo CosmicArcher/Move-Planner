@@ -41,6 +41,12 @@ public class EchelonsManager : MonoBehaviour
     [SerializeField] private EnemyCreator enemyCreator;
     private bool creatingNewEnemy = false;
 
+    [SerializeField] private GameObject spawnSetterHolder;
+    [SerializeField] private EnemySpawnSetter spawnSetter;
+    [SerializeField] private GameObject redSpawnPreview;
+    [SerializeField] private GameObject yellowSpawnPreview;
+    private bool hasSetEnemySpawn = false;
+
     [SerializeField] private GameObject enemySpawn;
 
     [SerializeField] private GameObject battleHandlerObject;
@@ -499,6 +505,11 @@ public class EchelonsManager : MonoBehaviour
                     if (node.GetNodeType() == NodeType.Helipad || node.GetNodeType() == NodeType.HeavyHelipad)
                     {
                         GameObject newEchelon = Instantiate(enemySpawn, node.gameObject.transform.position, Quaternion.identity, mapImage.transform);
+                        if (faction == Faction.Red)
+                            newEchelon.GetComponent<Image>().sprite = redSpawnPreview.GetComponentsInChildren<Image>()[1].sprite;
+                        else if (faction == Faction.Yellow)
+                            newEchelon.GetComponent<Image>().sprite = yellowSpawnPreview.GetComponentsInChildren<Image>()[1].sprite;
+
                         EchelonBehavior behavior = newEchelon.GetComponent<EchelonBehavior>();
                         enemies.Add(behavior);
 
@@ -516,6 +527,40 @@ public class EchelonsManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void AdjustEnemySpawnSetting(int faction)
+    {
+        StartCoroutine(SetEnemySpawnSetting((Faction)faction));
+    }
+
+    private IEnumerator SetEnemySpawnSetting(Faction faction)
+    {
+        if (faction == Faction.Red)
+            redSpawnPreview.GetComponent<Image>().color = Color.yellow;
+        else if (faction == Faction.Yellow)
+            yellowSpawnPreview.GetComponent<Image>().color = Color.yellow;
+
+        spawnSetterHolder.SetActive(true);
+
+        hasSetEnemySpawn = false;
+        while (!hasSetEnemySpawn)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        if (faction == Faction.Red)
+        {
+            redSpawnPreview.GetComponent<Image>().color = Color.white;
+            redSpawnPreview.GetComponentsInChildren<Image>()[1].sprite = spawnSetter.GetChosenSprite();
+        }
+        else if (faction == Faction.Yellow)
+        {
+            yellowSpawnPreview.GetComponent<Image>().color = Color.white;
+            yellowSpawnPreview.GetComponentsInChildren<Image>()[1].sprite = spawnSetter.GetChosenSprite();
+        }
+
+        spawnSetterHolder.SetActive(false);
     }
 
     public void Submit()
@@ -536,6 +581,11 @@ public class EchelonsManager : MonoBehaviour
     public void CreateNewEnemy()
     {
         creatingNewEnemy = true;
+    }
+
+    public void SetEnemySpawn()
+    {
+        hasSetEnemySpawn = true;
     }
 
     public IEnumerator DetermineCombat(EchelonBehavior defender)
