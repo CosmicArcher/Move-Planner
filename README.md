@@ -1,3 +1,5 @@
+Disclaimer: The assets are datamined from Girls' Frontline
+
 ## v1.1 update: 
 + You can name Griffin echelons and HOCs for easier identification
 + AP can be adjusted at any time to correct any misclicks
